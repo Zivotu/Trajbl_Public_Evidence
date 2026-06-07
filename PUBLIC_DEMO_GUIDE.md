@@ -22,9 +22,7 @@ Once logged in, the demo offers two testing layouts:
 This mode allows you to paste arbitrary raw text blocks and write a custom query.
 
 * The system returns token/context-budget metrics for the selected evidence packet.
-
 * Trajbl will segment your text and perform sentence-level evidence selection.
-
 * The packed context output displays the selected evidence packet, token/context-budget metrics, and a verification prompt.
 
 ### Prepared English Demo Corpus Mode
@@ -32,7 +30,6 @@ This mode allows you to paste arbitrary raw text blocks and write a custom query
 This mode uses pre-loaded documents from our test sets to demonstrate cross-document balancing.
 
 * Choose from selected multi-document questions.
-
 * Observe how Trajbl uses a source-aware selection strategy to avoid one source dominating the compressed packet.
 
 ---
@@ -42,7 +39,6 @@ This mode uses pre-loaded documents from our test sets to demonstrate cross-docu
 The interface contains a button labeled **"Copy full verification prompt"**.
 
 * Clicking this button copies a standardized prompt containing the query, the raw context, the Trajbl-selected context, and evaluation rubrics.
-
 * You can paste this prompt directly into external LLMs (e.g., GPT-4, Gemini Pro, Claude Opus) to verify the quality of generation using the packed context.
 
 ---
