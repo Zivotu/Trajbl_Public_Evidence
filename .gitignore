@@ -1,0 +1,14 @@
+.env
+*.zip
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+private/
+raw/
+internal/
+reports_private/
+*.key
+*.pem
+*.sqlite
+*.db

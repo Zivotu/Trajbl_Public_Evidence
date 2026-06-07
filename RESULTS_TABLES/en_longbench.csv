@@ -1,0 +1,4 @@
+Compression Mode,SQuAD F1 (Mean),Input Context Size (Words),Reduction (%)
+RAG (Full Context),0.587,10593,0.0%
+Trajbl (trajbl_pool12),0.400,1313,87.6%
+LLMLingua-2 (Question-Aware),0.233,1405,86.7%

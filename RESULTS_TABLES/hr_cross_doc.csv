@@ -1,0 +1,4 @@
+Compression Mode,Quality Score (Mean),Input Context Size (Words),Reduction (%)
+RAG (Full Context),0.625,7456,0.0%
+Trajbl (trajbl_crossdoc),0.609,1308,82.5%
+LLMLingua-2 (Question-Aware),0.313,1350,81.9%

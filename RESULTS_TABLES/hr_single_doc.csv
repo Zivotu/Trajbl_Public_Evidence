@@ -1,0 +1,6 @@
+Compression Mode,Quality Score (Mean),Input Context Size (Words),Reduction (%)
+RAG (Full Context),0.661,3183,0.0%
+Trajbl (trajbl_pool12),0.628,1160,63.6%
+LLMLingua-2 (Question-Aware),0.438,1331,58.2%
+LLMLingua-2 (Question-Blind),0.420,1290,59.5%
+Naive Truncation,0.445,1029,67.7%
