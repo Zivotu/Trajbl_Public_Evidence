@@ -30,19 +30,26 @@ It is positioned between the RAG retrieval engine and the LLM generation model:
 
 ```
 [ User Query ]
-    │
-    ▼
+     │
+     ▼
 [ Retrieval (RAG) ]
-    │
-    ▼
-[ Trajbl Context Packer ]   ← sentence-level evidence & source balancing
-    │
-    ▼
-[ LLM Generation ]
+     │
+     ▼
+[ Confidence Gate ] ───────┐ (Routes marker/numeric queries)
+     │                     │
+     ▼ (Standard route)    ▼ (Map-Surface route)
+[ Canonical Packer ]  [ Map-Surface Packer ]
+     │                     │
+     └──────────┬──────────┘
+                │
+                ▼
+      [ Packed Evidence ]
+                │
+                ▼
+       [ LLM Generation ]
 ```
 
-By extracting and ordering context at this stage, Trajbl delivers a compact,
-high-density evidence packet to the generator.
+By dynamically routing and selecting context at this stage, Trajbl delivers a compact, high-density evidence packet to the generator.
 
 ---
 
@@ -85,3 +92,14 @@ contexts and alternative compression baselines.
 - **Evaluation Scope:** All benchmarks reflect performance on fact-based, extractive
   queries. The results do not evaluate generative creativity or open-ended reasoning
   tasks.
+
+---
+
+## 6. Advanced Optimization Modules
+
+To support specialized query classes without degrading general performance, Trajbl utilizes advanced routing and structural indices:
+
+- **Map-Surface Indexing:** Builds a hierarchical layout map of documents at ingest time. This is used to answer tool, marker, and exact-count queries where lexical sentence search alone is insufficient.
+- **Confidence Gate (Dynamic Query Router):** A fast, query-only routing mechanism that classifies incoming questions. If a question is identified as matching the Map-Surface pattern, the router dynamically injects map-surface context; otherwise, it falls back to the canonical sentence packer. This prevents performance regression on generic queries while boosting precision on numeric and marker tasks.
+- **Value-Point Repair:** A postfilter candidate designed to resolve statistical and numeric value mismatches in the compressed evidence block by performing local value restoration on top of sentence selections.
+

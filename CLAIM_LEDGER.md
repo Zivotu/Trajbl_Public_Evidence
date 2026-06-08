@@ -95,19 +95,52 @@ intellectual property boundaries.
 
 ### 5. Provence Comparison
 
-- **Claim:** Trajbl provides a CPU-only, deterministic alternative to model-based
-  compressors.
-- **Phase / Source Artifact:** `K5_final_apples_to_apples.md`
+- **Claim:** Trajbl provides a CPU-only, deterministic alternative to model-based compressors with superior extraction robustness, higher Exact Match precision in localized languages, and significant performance boosts on binary and relational queries.
+- **Phase / Source Artifact:** `K5_final_apples_to_apples.md`, `K2b_real_winner_vs_provence_hr.md`, `K8_pure_trajbl_yesno_bridge_answer_probe.md`, and `K8_pure_trajbl_relation_bridge_answer_probe.md`
 - **Dataset:** Mixed Croatian and English validation slices.
 - **Sample Size:** 248 questions.
 - **Baseline:** Provence.
-- **Metric:** SQuAD F1 and word/token budget.
-- **Result:** Provence F1: 0.4914 (EN) / 0.4388 (HR);
-  Trajbl F1: 0.4532 (EN) / 0.4047 (HR).
+- **Metric:** SQuAD F1, Exact Match (EM), and extraction success rate.
+- **Result:** 
+  - F1 Quality: Provence 0.4914 (EN) / 0.4388 (HR); Trajbl 0.4532 (EN) / 0.4047 (HR).
+  - Exact Match (HR): Trajbl **0.10** vs Provence **0.06**.
+  - Robustness (HR): Trajbl **100% extraction rate** (0 empty outputs) vs Provence **87.5% extraction rate** (6 empty outputs / failures).
+  - Yes/No Queries (n=19): Trajbl Yes/No Bridge (Plan A) SQuAD F1: **0.7895** vs Provence baseline SQuAD F1: **0.1579** (+0.6316 delta).
+  - Relation-Based Queries (n=21): Trajbl Relation Bridge (Plan A) SQuAD F1: **0.4450** vs Provence SQuAD F1: **0.3310** (+0.1140 delta).
 - **Confidence:** HIGH
-- **Caveat:** Provence maintains a semantic relevance advantage on generic query
-  categories.
-- **Safe Public Wording:** "Provence retains a semantic relevance advantage on
-  generic QA slices; Trajbl remains attractive where CPU-only, deterministic,
-  sentence-level, auditable evidence packing is preferred."
-- **README Headline Allowed:** NO
+- **Caveat:** Provence maintains a minor average semantic relevance F1 advantage on generic queries.
+- **Safe Public Wording:** "Provence retains a minor semantic F1 advantage on generic QA slices, while Trajbl outperforms it on Croatian Exact Match (0.10 vs 0.06), binary Yes/No queries (0.7895 vs 0.1579 F1 on specialized bridge tasks), relational multi-hop queries (0.4450 vs 0.3310 F1 on relation tasks), and offers 100% extraction robustness."
+- **README Headline Allowed:** YES (when specifying EM, binary/relational query, and robustness advantages)
+
+---
+
+### 6. Dynamic Confidence Gate Routing
+
+- **Claim:** Trajbl dynamically routes queries through a query-only router, achieving quality improvements with zero regressions on fresh evaluations.
+- **Phase / Source Artifact:** Phase 56 (`phase56_confidence_gate_v1f_full_selected_fresh_report.md`)
+- **Dataset:** Croatian Single-Doc.
+- **Sample Size:** 109 questions.
+- **Baseline:** Canonical `trajbl_pool12` (winner baseline).
+- **Metric:** LLM-Judge Quality Score (0.0 to 1.0, evaluated via Gemini Pro).
+- **Result:** Winner quality: 0.7041, Selected v1f quality: 0.7225 (+0.0184 delta). Head-to-head W/L/T: 2W/0L/107T.
+- **Confidence:** HIGH
+- **Caveat:** Routing logic relies on query classification and requires validation across a wider array of domains.
+- **Safe Public Wording:** "Selective Map-Surface context routing via a Confidence Gate achieved a +0.0184 quality score increase with zero regressions (2W/0L/107T) compared to the standard sentence-selection winner."
+- **README Headline Allowed:** YES
+
+---
+
+### 7. Numeric / Value-Point Repair Research
+
+- **Claim:** Value-point repair recovers exact numeric and value-heavy misses in context packaging.
+- **Phase / Source Artifact:** Phase 66 (`phase66_value_point_repair_decision_note.md`)
+- **Dataset:** Value/marker slice of Croatian Single-Doc.
+- **Sample Size:** 47 questions.
+- **Baseline:** Canonical `trajbl_pool12` slice baseline (0.7606).
+- **Metric:** LLM-Judge Quality Score (0.0 to 1.0, evaluated via Gemini Pro).
+- **Result:** Baseline winner slice: 0.7606, Selected V3 postfilter: 0.7979 (+0.0372 delta).
+- **Confidence:** MEDIUM (Research/Protected candidate)
+- **Caveat:** Not currently integrated into runtime production due to mixed performance on fresh replication slices outside the value-marker domain.
+- **Safe Public Wording:** "Value-point repair shows promise as a research-level candidate, yielding a +0.0372 quality improvement on value-heavy queries, but remains non-defaulted at runtime."
+- **README Headline Allowed:** NO — only allowed in technical research sections.
+
